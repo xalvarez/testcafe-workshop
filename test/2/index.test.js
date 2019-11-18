@@ -7,9 +7,6 @@ fixture`Index`
 
 test('Should fill out form', async testCafe => {
   await testCafe
-    .click(indexPage.country)
-
-  await testCafe
     .typeText(indexPage.firstName, 'Demo')
     .typeText(indexPage.lastName, 'TestCafe')
     .click(indexPage.country)
