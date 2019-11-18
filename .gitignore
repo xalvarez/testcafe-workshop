@@ -1,0 +1,13 @@
+# Hidden files and folders
+.*
+!.gitignore
+!.github
+
+# npm
+node_modules
+
+# IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
