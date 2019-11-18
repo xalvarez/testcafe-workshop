@@ -11,6 +11,12 @@
   },
   "author": "Xavier Alvarez",
   "license": "MIT",
+  "standard": {
+    "globals": [
+      "fixture",
+      "test"
+    ]
+  },
   "devDependencies": {
     "standard": "^14.3.1",
     "testcafe": "^1.6.1"
