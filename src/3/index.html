@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TestCafe Demo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .hidden {
+            display: none
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <h1 class="text-center">TestCafe Demo</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select class="form-control" id="country">
+                            <option>Germany</option>
+                            <option>Spain</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="termsAndConditions">
+                        <label class="form-check-label" for="termsAndConditions">
+                            I accept the <a href="http://example.com/" target="_blank">Terms and Conditions</a>.
+                        </label>
+                    </div>
+                    <hr/>
+                    <button type="submit" class="btn btn-primary">Sign up</button>
+                </form>
+                <div class="alert alert-success mt-4 hidden" role="alert" id="successAlert">
+                    User has been successfully created!
+                </div>
+                <div class="alert alert-danger mt-4 hidden" role="alert" id="errorAlert">
+                    Darn :( something went wrong!
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        const form = document.querySelector('form')
+        form.onsubmit = event => this.onSubmit(event)
+
+        function onSubmit (event) {
+            event.preventDefault()
+            this.submitFormData()
+                .then(response => {
+                    if (response.status === 201) {
+                        this.showSuccessMessage()
+                    }
+                    else {
+                        this.showErrorMessage()
+                    }
+                })
+                .catch(() => {
+                    this.showErrorMessage()
+                })
+        }
+
+        function showSuccessMessage () {
+            document.querySelector('#successAlert').classList.remove('hidden')
+            document.querySelector('#errorAlert').classList.add('hidden')
+        }
+
+        function showErrorMessage () {
+            document.querySelector('#successAlert').classList.add('hidden')
+            document.querySelector('#errorAlert').classList.remove('hidden')
+        }
+
+        async function submitFormData () {
+            const apiUrl = 'signup'
+
+            return fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: this.formToJson()
+            })
+        }
+
+        function formToJson () {
+            const body = {}
+            body.firstName = document.querySelector('#firstName').value
+            body.lastName = document.querySelector('#lastName').value
+            body.country = document.querySelector('#country').value
+            body.termsAndConditions = document.querySelector('#termsAndConditions').checked
+
+            return JSON.stringify(body)
+        }
+    </script>
+</body>
+</html>
