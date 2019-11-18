@@ -4,7 +4,7 @@
   "scripts": {
     "test": "standard && testcafe chromium,firefox test/ -s ./test/screenshots -S",
     "testheadless": "standard && testcafe chromium:headless,firefox:headless test/ -s ./test/screenshots -S",
-    "ci-test": "standard && testcafe chrome:headless,firefox:headless test/ -s ./test/screenshots -S",
+    "ci-test": "standard && testcafe chrome:headless,firefox:headless test/ -s ./test/screenshots -S"
   },
   "repository": {
     "type": "git",
