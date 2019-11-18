@@ -21,5 +21,5 @@ npm test
 or in _headless_ mode:
 
 ```
-npm testheadless
+npm run testheadless
 ```
